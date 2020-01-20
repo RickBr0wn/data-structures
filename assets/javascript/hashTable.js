@@ -14,20 +14,17 @@ export function createHashTable() {
     resize: () => {
       const newTable = new Array(table.length * 2)
       table.forEach(item => {
-        if (item) {
+        item &&
           item.forEach(([key, value]) => {
             const i = hashStringToInt(key, newTable.length)
-            if (newTable[i]) {
-              newTable[idx].push([key, value])
-            } else {
-              newTable[i] = [[key, value]]
-            }
+            newTable[i]
+              ? newTable[idx].push([key, value])
+              : (newTable[i] = [[key, value]])
           })
-        }
       })
       table = newTable
     },
-    setItem: (key, value) => {
+    add: (key, value) => {
       numberOfItems++
       const loadFactor = numberOfItems / table.length
       if (loadFactor > 0.8) {
@@ -36,7 +33,7 @@ export function createHashTable() {
       const i = hashStringToInt(key, table.length)
       table[i] ? table[i].push([key, value]) : (table[i] = [[key, value]])
     },
-    getItem: key => {
+    show: key => {
       const i = hashStringToInt(key, table.length)
       if (!table[i]) {
         return `No value stored containing the value '${key}'`
@@ -44,19 +41,25 @@ export function createHashTable() {
       return table[i].find(keyValuePair => keyValuePair[0] === key)[1]
     },
     tableLength: () => table.length,
-    numberOfItemsInHashTable: () => numberOfItems,
+    itemsLength: () => numberOfItems,
   }
 }
 
 const hashTable = createHashTable()
 
-hashTable.setItem('firstName', 'Rick')
-hashTable.setItem('lastName', 'Brown')
-hashTable.setItem('items', 'test')
-hashTable.setItem('item', 'tests')
-console.log(hashTable.getItem('firstName'))
-console.log(hashTable.getItem('lastName'))
-console.log(hashTable.getItem('item'))
-console.log(hashTable.getItem('items'))
+console.log(hashTable)
+
+hashTable.add('firstName', 'Rick')
+console.log(hashTable.itemsLength())
+hashTable.add('lastName', 'Brown')
+console.log(hashTable.itemsLength())
+hashTable.add('items', 'test')
+console.log(hashTable.itemsLength())
+hashTable.add('item', 'tests')
+console.log(hashTable.itemsLength())
+console.log(hashTable.show('firstName'))
+console.log(hashTable.show('lastName'))
+console.log(hashTable.show('item'))
+console.log(hashTable.show('items'))
 console.log(hashTable.tableLength())
-console.log(hashTable.numberOfItemsInHashTable())
+console.log(hashTable.itemsLength())
