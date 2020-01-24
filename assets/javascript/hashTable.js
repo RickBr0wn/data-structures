@@ -26,8 +26,7 @@ export function createHashTable() {
     },
     add: (key, value) => {
       numberOfItems++
-      const loadFactor = numberOfItems / table.length
-      if (loadFactor > 0.8) {
+      if (numberOfItems / table.length > 0.8) {
         resize()
       }
       const i = hashStringToInt(key, table.length)
