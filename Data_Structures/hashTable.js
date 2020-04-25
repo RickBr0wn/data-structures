@@ -13,7 +13,7 @@ export function createHashTable() {
   return {
     resize: () => {
       const newTable = new Array(table.length * 2)
-      table.forEach(item => {
+      table.forEach((item) => {
         item &&
           item.forEach(([key, value]) => {
             const i = hashStringToInt(key, newTable.length)
@@ -24,6 +24,7 @@ export function createHashTable() {
       })
       table = newTable
     },
+
     add: (key, value) => {
       numberOfItems++
       if (numberOfItems / table.length > 0.8) {
@@ -32,14 +33,17 @@ export function createHashTable() {
       const i = hashStringToInt(key, table.length)
       table[i] ? table[i].push([key, value]) : (table[i] = [[key, value]])
     },
-    show: key => {
+
+    show: (key) => {
       const i = hashStringToInt(key, table.length)
       if (!table[i]) {
         return `No value stored containing the value '${key}'`
       }
-      return table[i].find(keyValuePair => keyValuePair[0] === key)[1]
+      return table[i].find((keyValuePair) => keyValuePair[0] === key)[1]
     },
+
     tableLength: () => table.length,
+
     itemsLength: () => numberOfItems,
   }
 }

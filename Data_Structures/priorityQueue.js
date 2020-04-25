@@ -11,18 +11,23 @@ export function createPriorityQueue() {
   return {
     add: (item, isHighPriority = false) =>
       isHighPriority ? highPriority.add(item) : lowPriority.add(item),
+
     remove: () =>
       !highPriority.isEmpty() ? highPriority.remove() : lowPriority.remove(),
+
     view: () =>
       highPriority.view() === undefined
         ? lowPriority.view() || []
         : highPriority
             .view()
             .concat(lowPriority.view() || [])
-            .filter(item => item !== undefined),
+            .filter((item) => item !== undefined),
+
     peek: () =>
       !highPriority.isEmpty() ? highPriority.peek() : lowPriority.peek(),
+
     isEmpty: () => highPriority.isEmpty() && lowPriority.isEmpty(),
+
     length: () => highPriority.length() || 0 + lowPriority.length() || 0,
   }
 }
