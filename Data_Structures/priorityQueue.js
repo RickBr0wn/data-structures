@@ -21,7 +21,7 @@ export function createPriorityQueue() {
         : highPriority
             .view()
             .concat(lowPriority.view() || [])
-            .filter((item) => item !== undefined),
+            .filter(item => item !== undefined),
 
     peek: () =>
       !highPriority.isEmpty() ? highPriority.peek() : lowPriority.peek(),
